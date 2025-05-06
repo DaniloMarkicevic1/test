@@ -17,7 +17,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
       navigate(paths.app.characters.getHref());
       return;
     }
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   if (!isLoggedIn) return null;
 
