@@ -1,12 +1,12 @@
 export const config = {
   authTokenName: 'auth_token',
   firebaseConfig: {
-    apiKey: 'AIzaSyC4dTnrTLX8MdItaSEeSDeD-Uhp0Q7Esk8',
-    authDomain: 'auth-2e075.firebaseapp.com',
-    databaseURL: 'https://auth-2e075.firebaseio.com',
-    projectId: 'auth-2e075',
-    storageBucket: 'auth-2e075.firebasestorage.app',
-    messagingSenderId: '802103712691',
-    appId: '1:802103712691:web:a41c830d4c0778ebabc9c6',
+    apiKey: 'AIzaSyD8ZZb5TXEo6Qscj4ki8E5MKgS9MOXZSuo',
+    authDomain: 'shindiri-test.firebaseapp.com',
+    projectId: 'shindiri-test',
+    storageBucket: 'shindiri-test.appspot.com',
+    messagingSenderId: '52617965392',
+    appId: '1:52617965392:web:fc3ff399c4d2e6db6e4655',
+    measurementId: 'G-CBB903KCR9',
   },
 };
