@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import { paths } from '@/config/paths';
 
 export const useRegister = () => {
-  const { firebaseAuth } = useAuthContext();
+  const { firebaseAuth, setIsLoggedIn } = useAuthContext();
   const navigate = useNavigate();
 
   return useMutation({
@@ -13,6 +13,8 @@ export const useRegister = () => {
     mutationFn: (request: { email: string; password: string }) =>
       register({ firebaseAuth, ...request }),
     onSuccess: () => {
+      console.log('success');
+      setIsLoggedIn(true);
       navigate(paths.app.characters.getHref(), {
         replace: true,
       });

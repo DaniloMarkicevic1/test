@@ -70,7 +70,11 @@ export const AuthForm = ({ login, signup, authError }: AuthFormProps) => {
         type="password"
       />
 
-      {authError ? <ErrorText text="Wrong Email or Password" /> : null}
+      {authError && authError.message.includes('email-already-in-use') ? (
+        <ErrorText text="Email already in use" />
+      ) : authError ? (
+        <ErrorText text="Wrong Email or Password" />
+      ) : null}
       <div className="flex justify-around pt-5">
         <Button
           disabled={isSubmitting}
