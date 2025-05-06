@@ -6,13 +6,14 @@ import { paths } from '@/config/paths';
 import { AuthFormData } from '@/types/auth-types';
 
 export const useLogin = () => {
-  const { firebaseAuth } = useAuthContext();
+  const { firebaseAuth, setIsLoggedIn } = useAuthContext();
   const navigate = useNavigate();
 
   return useMutation({
     mutationKey: ['loginUser'],
     mutationFn: (request: AuthFormData) => login({ firebaseAuth, ...request }),
     onSuccess: () => {
+      setIsLoggedIn(true);
       navigate(paths.app.characters.getHref(), {
         replace: true,
       });
