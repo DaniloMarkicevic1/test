@@ -13,7 +13,6 @@ export const useRegister = () => {
     mutationFn: (request: { email: string; password: string }) =>
       register({ firebaseAuth, ...request }),
     onSuccess: () => {
-      console.log('success');
       setIsLoggedIn(true);
       navigate(paths.app.characters.getHref(), {
         replace: true,

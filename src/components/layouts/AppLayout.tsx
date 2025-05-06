@@ -1,4 +1,3 @@
-import { config } from '@/config/config';
 import { useAuthContext } from '@/hooks/useAuthContext';
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router';
@@ -22,7 +21,6 @@ export const AppLayout = ({ children }: Props) => {
         <Button
           text="Logout"
           onClick={() => {
-            localStorage.removeItem(config.authTokenName);
             logout(onSuccess);
           }}
         />
