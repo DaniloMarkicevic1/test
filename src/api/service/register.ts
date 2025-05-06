@@ -17,15 +17,12 @@ export const register = async ({
     if (userCredential.user) {
       const user = userCredential.user;
 
-      user
-        .getIdToken()
-        .then((value) => {
-          localStorage.setItem(config.authTokenName, value);
-        })
-        .catch((err) => {
-          console.log(err);
-          localStorage.removeItem(config.authTokenName);
-        });
+      const userToken = await user.getIdToken();
+      if (userToken) {
+        localStorage.setItem(config.authTokenName, userToken);
+      } else {
+        localStorage.removeItem(config.authTokenName);
+      }
     }
   } catch (error) {
     const typedError = error as FirebaseError;

@@ -13,15 +13,12 @@ export const login = async ({ firebaseAuth, email, password }: AuthRequest) => {
     if (userCredential.user) {
       const user = userCredential.user;
 
-      user
-        .getIdToken()
-        .then((value) => {
-          localStorage.setItem(config.authTokenName, value);
-        })
-        .catch((err) => {
-          console.log(err);
-          localStorage.removeItem(config.authTokenName);
-        });
+      const userToken = await user.getIdToken();
+      if (userToken) {
+        localStorage.setItem(config.authTokenName, userToken);
+      } else {
+        localStorage.removeItem(config.authTokenName);
+      }
     }
   } catch (error: unknown) {
     const typedError = error as FirebaseError;
