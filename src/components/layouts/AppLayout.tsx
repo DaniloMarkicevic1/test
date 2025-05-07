@@ -11,7 +11,7 @@ export const AppLayout = ({ children }: Props) => {
   const { logout } = useAuthContext();
 
   const onSuccess = () => {
-    navigate('auth/login');
+    navigate('auth/login', { replace: true });
   };
 
   return (
