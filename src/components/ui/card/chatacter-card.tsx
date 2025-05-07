@@ -16,7 +16,7 @@ export const CharacterCard = ({
 }: Character) => {
   return (
     <>
-      <p className="font-bold text-center">Character: {name}</p>
+      <p className="font-bold text-center pb-6">Character: {name}</p>
       <div className="flex flex-col md:flex-row gap-10 items-center justify-center p-2 md:max-h-96">
         <img
           src={image}

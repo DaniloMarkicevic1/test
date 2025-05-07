@@ -1,8 +1,13 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, UseQueryOptions } from '@tanstack/react-query';
 import { getCharacters } from '../service/getCharacters';
 import { useAuthContext } from '@/hooks/useAuthContext';
 
-export function useCharacters({ search }: { search: string }) {
+type UseCharactersQueryConfig = {
+  config?: UseQueryOptions;
+  search: string;
+};
+
+export function useCharacters({ search }: UseCharactersQueryConfig) {
   const { isLoggedIn } = useAuthContext();
 
   return useInfiniteQuery({
