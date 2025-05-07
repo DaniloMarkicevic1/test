@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import { CharactersSection } from '@/components/ui/section/characters-section';
 import { useCharacter } from '@/api/data/useCharacter';
 import { useEffect, useState } from 'react';
+import { Loader } from '@/components/ui/components/loader';
 
 export const LocationShell = () => {
   const [residentArray, setResidentArray] = useState<string[] | string>('');
@@ -34,19 +35,18 @@ export const LocationShell = () => {
     return () => setResidentArray('');
   }, [data]);
 
-  if (!data) return null;
-  if (!characters) return null;
-
   return (
     <Wrapper>
       {!locationIsLoading || !locationIsFetching ? (
         <LocationCard location={data} />
-      ) : null}
-      {characters && (!charactersIsFetching || !charactersIsLoading) ? (
-        <CharactersSection characters={characters} />
       ) : (
-        <p>Loading Characters...</p>
+        <Loader />
       )}
+
+      <CharactersSection
+        characters={characters}
+        loading={charactersIsFetching || charactersIsLoading}
+      />
     </Wrapper>
   );
 };

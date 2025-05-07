@@ -2,7 +2,8 @@ import { useCharacters } from '@/api/data/useCharacters';
 import { SearchBox } from '@/components/ui/form/search-box';
 import { CharactersSection } from '@/components/ui/section/characters-section';
 import { Wrapper } from '@/components/ui/wrapper/wrapper';
-import { UIEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { useInView } from '@/hooks/useInView';
+import { UIEvent, useEffect, useState } from 'react';
 
 export const CharactersShell = () => {
   const [search, setSearch] = useState('');
@@ -14,25 +15,7 @@ export const CharactersShell = () => {
     search: debouncedValue,
   });
 
-  const observer = useRef<IntersectionObserver | null>(null);
-  const isInViewRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (isFetching) {
-        return;
-      }
-
-      if (observer.current) observer.current.disconnect();
-
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting) {
-          fetchNextPage();
-        }
-      });
-
-      if (node) observer.current.observe(node);
-    },
-    [fetchNextPage, isFetching],
-  );
+  const { isInViewRef } = useInView(fetchNextPage);
 
   const handleSearch = (value: string) => {
     setSearch(value);
@@ -53,19 +36,18 @@ export const CharactersShell = () => {
     }
   };
 
-  if (!data) return;
-
   return (
     <Wrapper onScroll={handleScroll}>
       <SearchBox onChange={handleSearch} />
+
       <CharactersSection
+        loading={isLoading || isFetching}
         showScrollToTop={showScrollToTop}
         characters={data?.pages
           .map((items) => items.results.map((character) => character))
           .flat()}
       />
-      {isLoading || isFetching ? <p>Loading...</p> : null}
-      {!isLoading || !isFetching ? <div ref={isInViewRef} /> : null}
+      {(!isLoading || !isFetching) && data ? <div ref={isInViewRef} /> : null}
     </Wrapper>
   );
 };

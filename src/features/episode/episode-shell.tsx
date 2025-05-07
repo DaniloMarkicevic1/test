@@ -5,6 +5,7 @@ import { useCharacter } from '@/api/data/useCharacter';
 import { useEffect, useState } from 'react';
 import { useEpisodes } from '@/api/data/useEpisodes';
 import { EpisodeCard } from '@/components/ui/card/episode-card';
+import { Loader } from '@/components/ui/components/loader';
 
 export const EpisodeShell = () => {
   const [residentArray, setResidentArray] = useState<string[] | string>('');
@@ -34,21 +35,18 @@ export const EpisodeShell = () => {
     return () => setResidentArray('');
   }, [data]);
 
-  if (!data) return null;
-  if (!characters) return null;
-
   return (
     <Wrapper>
       {!episodeIsFetching || !episodeIsLoading ? (
-        <EpisodeCard {...data[0]} />
-      ) : null}
-      {characters &&
-      Array.isArray(characters) &&
-      (!charactersIsFetching || !charactersIsLoading) ? (
-        <CharactersSection characters={characters} />
+        <EpisodeCard {...(data && { ...data[0] })} />
       ) : (
-        <p>Loading Characters...</p>
+        <Loader />
       )}
+
+      <CharactersSection
+        characters={characters}
+        loading={charactersIsFetching || charactersIsLoading}
+      />
     </Wrapper>
   );
 };

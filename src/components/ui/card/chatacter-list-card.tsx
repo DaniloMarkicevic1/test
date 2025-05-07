@@ -20,7 +20,11 @@ export const CharacterListCard = ({
       to={`/characters/${id}`}
       className={`transition p-4 md:p-2 flex-col md:flex-row outline-gray-700 flex md:flex-1/1 lg:flex-1/3 2xl:flex-1/4 items-center rounded-md overflow-hidden gap-5 border border-cyan-900 hover:shadow-emerald-700 shadow-lg hover:outline-3 hover:outline-gray-700 hover:bg-gray-700`}
     >
-      <img src={image} alt={'name'} className="rounded-md flex flex-1/5" />
+      <img
+        src={image}
+        alt={'name'}
+        className="rounded-md flex flex-1/5 max-w-80"
+      />
       <div className="flex flex-col flex-1/3">
         <p>Name: {name}</p>
         <p>Status: {status}</p>
