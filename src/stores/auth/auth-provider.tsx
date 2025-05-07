@@ -19,6 +19,7 @@ export const AuthContextProvider = ({ children }: PropsWithChildren) => {
       .then((value) => {
         console.log({ value });
         localStorage.removeItem(config.authTokenName);
+        setIsLoggedIn(false);
         onSuccessFn();
       })
       .catch((err) => console.log({ err }));
